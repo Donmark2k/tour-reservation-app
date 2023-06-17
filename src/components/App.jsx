@@ -25,6 +25,7 @@ function App() {
           <Route path="/make_reservations/:id" element={<ProtectedRoute><MakeReservation /></ProtectedRoute>} />
 
           <Route path="/delete-tour" element={<DeleteTourPage />} />
+          <Route path="/reservations" element={<Reservations />} />
           <Route path="*" element={<PageNotFound />} />
         </Route>
       </Routes>
