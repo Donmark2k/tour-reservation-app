@@ -9,6 +9,8 @@ import Log from '../Lognin/out/log';
 
 // eslint-disable-next-line consistent-return
 const Home = () => {
+  // window.location.reload();
+  render = false;
   const dispatch = useDispatch();
   const tourS = useSelector((state) => state.tours);
   const { data } = tourS;
