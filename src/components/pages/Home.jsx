@@ -12,7 +12,7 @@ const Home = () => {
   // window.location.reload();
   const dispatch = useDispatch();
   const tourS = useSelector((state) => state.tours);
-  const { data, loading } = tourS;
+  const { data } = tourS;
   useEffect(() => {
     dispatch(fetchTours());
   }, [dispatch]);
@@ -32,7 +32,12 @@ const Home = () => {
   const handlePrev = () => {
     setCurrentPage((prevPage) => (prevPage > 1 ? prevPage - 1 : prevPage));
   };
-
+  const sliceParagraph = (paragraph, limit) => {
+    const words = paragraph.split(' ');
+    const slicedWords = words.slice(0, limit);
+    const slicedParagraph = slicedWords.join(' ');
+    return slicedParagraph;
+  };
   return (
     <section className="lg:h-screen flex flex-col bg-gray-200">
       <div className="w-full h-16 bg-gray-100 flex justify-between items-center">
