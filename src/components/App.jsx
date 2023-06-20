@@ -9,7 +9,10 @@ import DeleteTourPage from './pages/DeleteTourPage';
 import AddTours from './pages/AddTours';
 import ProtectedRoute from './pages/ProtectedRoute';
 import Reservations from './pages/reservations';
+<<<<<<< HEAD
 import MakeReservation from './pages/MakeReservation';
+=======
+>>>>>>> 0a12de0 (Add deleteReservation function)
 
 function App() {
   return (
