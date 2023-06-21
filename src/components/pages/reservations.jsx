@@ -14,10 +14,10 @@ const Reservations = () => {
     dispatch(fetchTours());
   }, [dispatch]);
 
-  const getTourName = (id) => {
-    const tour = tours.find((yourTour) => yourTour.id === id);
-    return tour ? tour.name : '';
-  };
+  // const getTourName = (id) => {
+  //   const tour = tours.find((yourTour) => yourTour.id === id);
+  //   return tour ? tour.name : '';
+  // };
 
   // const getTourImage = (id) => {
   //   const tour = tours.find((yourTour) => yourTour.id === id);
@@ -52,7 +52,7 @@ const Reservations = () => {
             <div className="p-6 flex-grow flex flex-col justify-between">
               <div>
                 <p className="text-lg font-bold mb-2 text-gray-800">
-                  {getTourName(reservation.tour_id)}
+                  {/* {getTourName(reservation.tour_id)} */}
                 </p>
                 <div className="flex justify-between items-center mb-2">
                   <span className="text-gray-700 font-bold">City:</span>
