@@ -24,6 +24,11 @@ const Reservations = () => {
   //   return tour ? tour.img_url : '';
   // };
 
+  // const getTourImage = (id) => {
+  //   const tour = tours.find((yourTour) => yourTour.id === id);
+  //   return tour ? tour.img_url : '';
+  // };
+
   return (
     <div className="flex justify-center flex-col items-center p-4">
       <h2 className="sm:text-3xl text-2xl font-bold mb-6 pt-4">
