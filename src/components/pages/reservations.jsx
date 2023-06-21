@@ -2,7 +2,7 @@
 /* eslint-disable import/extensions */
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteReservation, fetchReservations } from '../../redux/reservationSlice';
+import { fetchReservations } from '../../redux/reservationSlice';
 import { fetchTours } from '../../redux/tours/tours';
 
 const Reservations = () => {
@@ -19,16 +19,10 @@ const Reservations = () => {
     return tour ? tour.name : '';
   };
 
-  const getTourImage = (id) => {
-    const tour = tours.find((yourTour) => yourTour.id === id);
-    return tour ? tour.img_url : '';
-  };
-
-  const handleDeleteReservation = (id) => {
-    if (window.confirm('Are you sure you want to cancel this reservation?')) {
-      dispatch(deleteReservation(id)).then(() => dispatch(fetchReservations()));
-    }
-  };
+  // const getTourImage = (id) => {
+  //   const tour = tours.find((yourTour) => yourTour.id === id);
+  //   return tour ? tour.img_url : '';
+  // };
 
   return (
     <div className="flex justify-center flex-col items-center p-4">
@@ -50,11 +44,11 @@ const Reservations = () => {
             className="bg-white rounded-lg shadow-lg flex flex-col overflow-hidden"
             key={reservation.id}
           >
-            <img
+            {/* <img
               src={getTourImage(reservation.tour_id)}
               alt={getTourName(reservation.tour_id)}
               className="h-44 w-96 object-cover rounded-t-lg"
-            />
+            /> */}
             <div className="p-6 flex-grow flex flex-col justify-between">
               <div>
                 <p className="text-lg font-bold mb-2 text-gray-800">
@@ -74,15 +68,6 @@ const Reservations = () => {
                   <span className="text-gray-700 font-bold">End Date:</span>
                   <span className="text-gray-700">{reservation.end_date}</span>
                 </div>
-              </div>
-              <div className="flex justify-end">
-                <button
-                  type="button"
-                  className="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full mt-2"
-                  onClick={() => handleDeleteReservation(reservation.id)}
-                >
-                  Cancel Reservation
-                </button>
               </div>
             </div>
           </div>

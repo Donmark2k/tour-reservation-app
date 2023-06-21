@@ -1,19 +1,19 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { postReservation } from '../../redux/reservationSlice';
 
 const MakeReservation = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
-  const [city, setCity] = useState('');
+  // const [city, setCity] = useState('');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
 
-  const handleCityChange = (event) => {
-    setCity(event.target.value);
-  };
+  // const handleCityChange = (event) => {
+  //   setCity(event.target.value);
+  // };
 
   const handleStartDateChange = (event) => {
     setStartDate(event.target.value);
@@ -23,24 +23,24 @@ const MakeReservation = () => {
     setEndDate(event.target.value);
   };
 
-  const handleSubmit = async (event) => {
+  const { id } = useParams();
+  const handleSubmit = (event) => {
     event.preventDefault();
 
-    const { id } = useParams();
     const tourId = id;
 
     const reservationData = {
       start_end: startDate,
       end_date: endDate,
       tour_id: tourId,
-      city,
     };
+    dispatch(postReservation(reservationData));
 
-    console.log(reservationData);
-    try {
-      await dispatch(postReservation(reservationData));
-    } catch (error) {}
-    navigate('/reservations');
+    // console.log(reservationData);
+    // try {
+    //   await dispatch(postReservation(reservationData));
+    // } catch (error) {}
+    // navigate('/reservations');
   };
 
   return (
@@ -58,19 +58,20 @@ const MakeReservation = () => {
         onSubmit={handleSubmit}
         className="shadow-xl rounded-xl px-8 pt-6 pb-8 bg-gray-300 bg-opacity-80"
       >
-        <div className="mb-4">
+        {/* <div className="mb-4">
           <label className="block text-gray-700 font-bold mb-2" htmlFor="city">
             City
           </label>
           <input
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 
+            leading-tight focus:outline-none focus:shadow-outline"
             id="city"
             type="text"
             required
             value={city}
             onChange={handleCityChange}
           />
-        </div>
+        </div> */}
         <div className="mb-4">
           <label
             className="block text-gray-700 font-bold mb-2"

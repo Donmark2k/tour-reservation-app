@@ -1,7 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
-
-const api = `${process.env.REACT_APP_API_URL}/reservations`;
+import { getToken } from 'util/auth';
 
 const initialState = {
   reservationList: [],
@@ -9,24 +7,15 @@ const initialState = {
   error: null,
 };
 
-// Define an async thunk to delete a reservation from the API
-export const deleteReservation = createAsyncThunk(
-  'reservations/deleteReservation',
-  async (reservationId) => {
-    const response = await fetch(
-      `${process.env.REACT_APP_API_URL}${reservationId}`,
-      {
-        method: 'DELETE',
-      },
-    );
-    const data = await response.json();
-    return data;
-  },
-);
-
 export const fetchReservations = createAsyncThunk('reservations/fetchReservations', async () => {
   try {
-    const response = await axios.get(api);
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/reservations`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${getToken}`,
+      },
+    });
     return response.data;
   } catch (error) {
     return error.message;
@@ -43,6 +32,7 @@ export const postReservation = createAsyncThunk(
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${getToken}`,
         },
         body: JSON.stringify({
           ...reservationData,
@@ -51,14 +41,14 @@ export const postReservation = createAsyncThunk(
       },
     );
     const data = await response.json();
-    return data.data;
+    return data;
   },
 );
 
 export const reservationSlice = createSlice({
   name: 'reservations',
   initialState,
-  reducers: { },
+  reducers: {},
   extraReducers(builder) {
     builder.addCase(fetchReservations.pending, (state) => ({
       ...state,
@@ -70,7 +60,6 @@ export const reservationSlice = createSlice({
           start_end: reservation.start_end,
           end_date: reservation.end_date,
           id: reservation.id,
-          city: reservation.city,
         })),
         status: 'loaded',
       }))
@@ -83,10 +72,6 @@ export const reservationSlice = createSlice({
     builder.addCase(postReservation.fulfilled, (state, action) => {
       state.push(action.payload);
     });
-    // Handle the deleteReservation fulfilled action
-    builder.addCase(deleteReservation.fulfilled, (state, action) => state.filter(
-      (reservation) => reservation.id !== action.payload.id,
-    ));
   },
 
 });
